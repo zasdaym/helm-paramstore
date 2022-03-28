@@ -32,13 +32,13 @@ func run() error {
 		return err
 	}
 
-	paramstoreFunc, err := getFromAWSParamStore()
+	paramStoreFunc, err := getFromAWSParamStore()
 	if err != nil {
 		return err
 	}
 
 	funcMap := template.FuncMap{
-		"paramstore": paramstoreFunc,
+		"paramstore": paramStoreFunc,
 	}
 	content, err := os.ReadFile(*valuesFile)
 	if err != nil {
