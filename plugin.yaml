@@ -1,5 +1,5 @@
 name: "paramstore"
-version: "1.0.0"
+version: "1.1.0"
 usage: "Inject values from AWS SSM Parameter Store into Helm values file"
 description: "Inject values from AWS SSM Parameter Store into Helm values file"
 ignoreFlags: false
