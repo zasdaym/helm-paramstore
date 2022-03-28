@@ -23,11 +23,12 @@ func run() error {
 	var (
 		showVersion = flag.Bool("version", false, "Show version")
 		valuesFile  = flag.String("f", "values.yaml", "Helm values file location")
+		overwrite   = flag.Bool("w", false, "Overwrite values file")
 	)
 	flag.Parse()
 
 	if *showVersion {
-		_, err := fmt.Printf("version\n")
+		_, err := fmt.Printf("%s\n", version)
 		return err
 	}
 
@@ -47,7 +48,15 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	return tmpl.Execute(os.Stdout, nil)
+
+	out := os.Stdout
+	if *overwrite {
+		out, err = os.Create(*valuesFile)
+		if err != nil {
+			return err
+		}
+	}
+	return tmpl.Execute(out, nil)
 }
 
 // getFromAWSParamStore returns a function to get a value from AWS SSM Parameter Store.
